@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.jpaquerydslmybatis.repository.db1.mybatis.mapper.board.BoardMybatisMapper">
+<!--만약 파라미터 타입이 long이 아니고 Long 랩퍼클래스일땐 -->
+<!-- <delete id="deleteById" parameterType="java.lang.Long">   -->
+    <select id="findById" parameterType="java.lang.Long" resultType="BoardSimpleDomain">
+        SELECT BOARD_ID AS boardId, TITLE, CONTENT
+        FROM BOARD
+        WHERE BOARD_ID = #{boardId}
+    </select>
+</mapper>

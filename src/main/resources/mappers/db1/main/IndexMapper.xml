@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.jpaquerydslmybatis.repository.db1.mybatis.mapper.main.IndexMapper">
+
+<!--db1 내부의 다른 패키지 내에 있는 Dto도 그냥 클래스명만 적어두면된다.-->
+    <resultMap id="imageResultMap" type="MainImageDto">
+        <result property="imageNo" column="imgno"/>
+        <result property="imageName" column="imgname"/>
+        <result property="imageFileName" column="imgfilename"/>
+    </resultMap>
+    <select id="findAllMainImage" resultMap="imageResultMap">
+        select *
+        from TBL_MAIN_PAGE
+    </select>
+</mapper>

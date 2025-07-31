@@ -1,0 +1,106 @@
+//package com.github.jpaquerydslmybatis.config.teacher;
+//
+//import javax.sql.DataSource;
+//
+//import org.apache.ibatis.session.SqlSessionFactory;
+//import org.mybatis.spring.SqlSessionFactoryBean;
+//import org.mybatis.spring.SqlSessionTemplate;
+//import org.mybatis.spring.annotation.MapperScan;
+//import org.springframework.beans.factory.annotation.Qualifier;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.boot.context.properties.ConfigurationProperties;
+//import org.springframework.boot.jdbc.DataSourceBuilder;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+//import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+//import org.springframework.transaction.PlatformTransactionManager;
+//import org.springframework.transaction.annotation.EnableTransactionManagement;
+//
+//@Configuration  // Spring 컨테이너가 처리해주는 클래스로서, 클래스내에 하나 이상의 @Bean 메소드를 선언만 해주면 런타임시 해당 빈에 대해 정의되어진 대로 요청을 처리해준다.
+//@EnableTransactionManagement // 스프링 부트에서 Transaction 처리를 위한 용도
+//// === #187. 아래의 @MapperScan 은 Mapper Interface 를 사용하기 위한 설정이다.
+//@MapperScan(basePackages={"com.spring.app.employees.model"}, sqlSessionFactoryRef="sqlSessionFactory_2")
+//public class Datasource_hr_Configuration {
+//
+//	@Value("${mybatis.mapper-locations}")  // *.yml 파일에 있는 설정값을 가지고 온 것으로서 mapper 파일의 위치를 알려주는 것이다.
+//    private String mapperLocations;
+//
+////	@Bean(name = "dataSource_2")  와  @Bean @Qualifier("dataSource_2") 은 같은 것이다.
+// 	@Bean(name = "dataSource_2")
+//    @ConfigurationProperties(prefix = "spring.datasource-hr")
+//    public DataSource dataSource(){
+//        return DataSourceBuilder.create().build();
+//    }
+//  /*
+//    @ConfigurationProperties은 *.properties , *.yml 파일에 있는 property를 자바 클래스에 값을 가져와서 사용할 수 있게 해주는 어노테이션이다.
+//
+//    @ConfigurationProperties를 사용하기 위해서는
+//    pom.xml 에서 아래와 같이 spring-boot-configuration-processor 를 추가해주어야 한다.
+//    spring-boot-configuration-processor는 pom.xml에서 다음과 같이 추가한다.
+//
+//	 <dependency>
+//	    <groupId>org.springframework.boot</groupId>
+//	    <artifactId>spring-boot-configuration-processor</artifactId>
+//	 </dependency>
+//  */
+//
+//  	 @Bean(name = "sqlSessionFactory_2")
+//     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource_2") DataSource dataSource, ApplicationContext applicationContext) throws Exception{
+//        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//        sqlSessionFactoryBean.setDataSource(dataSource);
+//        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/mybatis-config.xml"));
+//        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+//
+//        return sqlSessionFactoryBean.getObject();
+//    }
+//
+//
+//  	@Bean(name="sqlsession_2")
+//    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactory_2") SqlSessionFactory sqlSessionFactory) {
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
+//	/*
+//	  	@Autowired
+//		@Qualifier("sqlsession_2")
+//	    private SqlSessionTemplate abc;
+//	    -- 위처럼 @Qualifier("sqlsession_2")을 해주면 빈 이름이 sqlsession_2 인 SqlSessionTemplate 객체가 abc 에 주입된다.
+//    */
+//
+//  	@Bean
+//    public PlatformTransactionManager transactionManager_hr() {
+//        DataSourceTransactionManager tm = new DataSourceTransactionManager();
+//        tm.setDataSource(dataSource());
+//        return tm;
+//    }
+//
+//  /*
+//	다음으로 transaction을 실행시키려고 하는 위치에서 다음의 예제와 같이 구현하시면 됩니다.
+//	@Service
+//	public class SampleService {
+//
+//	    @Autowired
+//	    private SampleDao dao;
+//
+//	    @Transactional(value="transactionManager_hr")
+//	    @Override
+//	    public boolean insertSample(Sample sample) {
+//	        int returnId = dao.deleteSample(sample);
+//	        if (returnId > 0) {
+//	            dao.insertSample(sample);
+//	            return true;
+//	        }
+//	        return false;
+//	    }
+//	}
+//
+//	여기서 application에 선언한 transaction manager가 복수일 경우 target으로 하는 transaction manager명을 명시해야 합니다.
+//	그렇지 않으면 다음과 같은 exception이 발생합니다.
+//	NoUniqueBeanDefinitionException
+//	No qualifying bean of type 'org.springframework.transaction.TransactionManager'
+//
+//	org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.springframework.transaction.TransactionManager' available: expected single matching bean but found 2: transactionManager_hr,transactionManager_mymvc_user
+// */
+//
+//}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.jpaquerydslmybatis.repository.db1.mybatis.mapper.StudentMapper">
+<!--    ArrayList 파라미터를 받아와서 insert 실행하기 java.util 은 없어도됨  -->
+<!--    <insert id="insertAllStudent" parameterType="java.util.List">-->
+    <insert id="insertAllStudent">
+        INSERT ALL
+        <foreach collection="list" item="student" separator=" ">
+            <!-- MyBatis 는  collection="list" 라고 하면 자동적으로 파라미터 타입을 java.util.List 타입으로 인식하므로 parameterType 은 쓰지 않아도 된다.
+            즉 상단의 파라미터 타입이 없어도된다.-->
+            INTO STUDENT (student_id, name, email) VALUES (#{student.studentId}, #{student.name}, #{student.email})
+        </foreach>
+        SELECT * FROM DUAL
+
+    </insert>
+
+    <resultMap id="studentResultMap" type="StudentDto">
+        <result property="studentId" column="student_id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="findByNamesIn" resultMap="studentResultMap">
+        SELECT * FROM STUDENT WHERE name IN
+        <foreach collection="list" item="name" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+    </select>
+<!--    array 버전 위와 동일-->
+    <select id="findByNamesInTwo" resultMap="studentResultMap">
+        <!-- MyBatis 는  collection="array" 라고 하면 자동적으로 파라미터 타입을 String[] 타입으로 인식하므로 parameterType 은 쓰지 않는다. -->
+        SELECT * FROM STUDENT WHERE name IN
+        <foreach collection="array" item="name" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+    </select>
+
+</mapper>

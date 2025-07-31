@@ -1,0 +1,25 @@
+package com.github.jpaquerydslmybatis.common.exception;
+
+
+
+public class AccountLockedException extends MakeRuntimeException{
+
+
+    protected AccountLockedException(MakeRuntimeException.ExceptionBuilder<?, ?> exceptionBuilder) {
+        super(exceptionBuilder);
+    }
+    public static of of() {
+        return new of();
+    }
+
+    public static class of extends MakeRuntimeException.ExceptionBuilder<of, AccountLockedException>{
+        public of() {
+            super(AccountLockedException.class);
+        }
+        @Override
+        protected of self() {
+            return this;
+        }
+    }
+
+}
