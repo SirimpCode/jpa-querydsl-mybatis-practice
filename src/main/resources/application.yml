@@ -10,6 +10,12 @@ coolsms:
   domain : https://api.solapi.com
   phone-number: ENC(z/wRpfredxFKff/lsjozmL+EeOPpcJS0) # 발신번호
 
+server:
+  tomcat:
+    max-part-count: 3 # Tomcat에서 파일 업로드 시 최대 파트 수 설정, -1은 제한 없음
+#    파일 뿐 아니라 multipart/form-data로 전송되는 모든 요청에 적용됨
+#    즉 파라미터의 갯수까지 포함해야된다.
+
 spring:
   server-url:
     base: http://localhost:8080
@@ -47,7 +53,7 @@ spring:
       mail:
         smtp:
           auth: true
-          timeout: 5000
+          timeout: 20000 # 20초
           starttls:
             enable: true
   #              Identity Manager 서버가 SSL을 사용하여 SMTP와 통신하도록 지시합니다.

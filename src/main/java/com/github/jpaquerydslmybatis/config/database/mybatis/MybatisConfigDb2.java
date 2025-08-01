@@ -1,4 +1,4 @@
-package com.github.jpaquerydslmybatis.config.database.mybatis;
+package com.github.jpaquerydslmybatis.config.database.mybatis;//package com.github.accountmanagementproject.config.database.mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

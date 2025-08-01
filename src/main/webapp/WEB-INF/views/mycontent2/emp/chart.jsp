@@ -144,6 +144,8 @@
                 (pageUrlUserNameResponse.data.find(item => item.name === user && item.deptName === page)?.y) || 0
             )
         }));
+        console.log(pageNames);
+        console.log(series);
         resetChartContainer();
 
         Highcharts.chart('chart_container', {

@@ -73,7 +73,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" data-toggle="dropdown">메일보내기(다중파일첨부)</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<%=ctxPath%>/email/emailWrite">email작성</a>
+                    <a class="dropdown-item" href="<%=ctxPath%>/email/write">email작성</a>
                 </div>
             </li>
             <%-- </c:if>  --%>

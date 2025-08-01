@@ -41,6 +41,12 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapStructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 
+    //WebClient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    //spotify
+    implementation 'se.michaelthelin.spotify:spotify-web-api-java:9.3.0'
+
+
     //env-hide 야믈에 쓴 비번 가져올수있음
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     //oracle
@@ -62,7 +68,6 @@ dependencies {
     //mybatis
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
-
 
 
     //swagger

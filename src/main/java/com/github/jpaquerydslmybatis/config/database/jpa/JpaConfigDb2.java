@@ -1,4 +1,4 @@
-package com.github.jpaquerydslmybatis.config.database.jpa;
+package com.github.jpaquerydslmybatis.config.database.jpa;//package com.github.accountmanagementproject.config.database.jpa;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.ibatis.session.SqlSessionFactory;

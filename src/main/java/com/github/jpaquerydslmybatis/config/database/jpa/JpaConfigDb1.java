@@ -1,4 +1,4 @@
-package com.github.jpaquerydslmybatis.config.database.jpa;
+package com.github.jpaquerydslmybatis.config.database.jpa;//package com.github.accountmanagementproject.config.database.jpa;
 
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +26,15 @@ import java.util.HashMap;
 
 /*
 * 여기서 주의해야 할 것은 Db1ConfigSecond 에 @Primary 어노테이션이 붙었다는 것이다.
-
-
-
 이는 spring data 에서 default properties 는 단일 데이터소스를 기반으로 하기 때문에 그렇다
 * */
+//추후 여러개의 데이터소스를 사용할 때를 위한 참고 클래스
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.github.jpaquerydslmybatis.repository.db1.jpa",
-        entityManagerFactoryRef = "db1EntityManagerFactory",
-        transactionManagerRef = "db1TransactionManager"
+        basePackages = "com.github.jpaquerydslmybatis.repository.db1.jpa",// JpaRepository 를 스캔할 패키지 즉 JpaRepository 클래스가 있는 패키지
+        entityManagerFactoryRef = "db1EntityManagerFactory", // JpaRepository 를 위한 EntityManagerFactory 빈 이름
+        transactionManagerRef = "db1TransactionManager" // JpaRepository 를 위한 TransactionManager 빈 이름
 )
 public class JpaConfigDb1 {
 
@@ -56,6 +54,7 @@ public class JpaConfigDb1 {
 
     @Bean
     //@Primary // @Primary 어노테이션은 이 빈이 기본적으로 사용될 빈임을 나타낸다.
+    // 없을시 반드시 @Qualifier("db1EntityManagerFactory") 어노테이션을 사용해야 한다.
     //단일 일땐 EntityManager 를 spring이 자동으로 생성해주지만
     //여러개를 사용할 때는 LocalContainerEntityManagerFactoryBean 를 사용해 여러 커스텀설정을 적용해준다.
     public LocalContainerEntityManagerFactoryBean db1EntityManagerFactory(
@@ -78,7 +77,7 @@ public class JpaConfigDb1 {
         // 위의 것은 JpaRepository 를 위한 설정이고 아래의 설정은 엔티티 클래스를 위한설정
         factory.setPackagesToScan("com.github.jpaquerydslmybatis.repository.db1.jpa");
 
-        //네이밍전략 적용
+        //네이밍전략 적용 db의  snake_case 를 자바의 camelCase로 변환해주는 전략
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
         properties.put("hibernate.implicit_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
